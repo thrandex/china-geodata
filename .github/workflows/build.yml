@@ -35,10 +35,18 @@ jobs:
           OUT: ${{ runner.temp }}/out
         run: |
           set -euo pipefail
+          # README template without the per-build values (build time and
+          # input refs), so a changed template is published but a new
+          # build time alone is not.
+          readme_template() {
+            grep -v '^Built ' \
+              | sed -E 's/release@[0-9a-f]{12}/release@REF/; s/domain-list-community [A-Za-z0-9._-]+, tag/domain-list-community TAG, tag/'
+          }
           if git fetch --depth=1 origin release 2>/dev/null \
             && git show FETCH_HEAD:geosite-cn.dat.sha256sum | cmp -s - "$OUT/geosite-cn.dat.sha256sum" \
-            && git show FETCH_HEAD:geosite-cn-enhanced.dat.sha256sum | cmp -s - "$OUT/geosite-cn-enhanced.dat.sha256sum"; then
-            echo "Outputs unchanged; nothing to publish."
+            && git show FETCH_HEAD:geosite-cn-enhanced.dat.sha256sum | cmp -s - "$OUT/geosite-cn-enhanced.dat.sha256sum" \
+            && cmp -s <(git show FETCH_HEAD:README.md | readme_template) <(readme_template < "$OUT/README.md"); then
+            echo "Outputs and README unchanged; nothing to publish."
             exit 0
           fi
           # One orphan commit holding only the files in $OUT.

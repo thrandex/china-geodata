@@ -1,7 +1,11 @@
-# only-china
+# china-geodata
 
-Small `geosite.dat` files for routers, rebuilt every day by GitHub Actions.
-Each file holds exactly one tag, `CN`.
+Small China-only geodata files for routers, rebuilt every day by GitHub
+Actions. Each geosite file holds exactly one tag, `CN`.
+
+The repository is named "geodata", not "geosite", so it can also hold a
+`geoip.dat` later, next to the geosite files (see [Use with honk](#use-with-honk)
+for how the files map onto the `assets.geodata` block).
 
 | File | Content |
 |---|---|
@@ -16,11 +20,11 @@ each list, the rule counts by type, and the output sha256s.
 ## Download URLs
 
 ```
-https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn.dat
-https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn.dat.sha256sum
-https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn-enhanced.dat
-https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn-enhanced.dat.sha256sum
-https://raw.githubusercontent.com/thrandex/only-china/release/manifest.json
+https://raw.githubusercontent.com/thrandex/china-geodata/release/geosite-cn.dat
+https://raw.githubusercontent.com/thrandex/china-geodata/release/geosite-cn.dat.sha256sum
+https://raw.githubusercontent.com/thrandex/china-geodata/release/geosite-cn-enhanced.dat
+https://raw.githubusercontent.com/thrandex/china-geodata/release/geosite-cn-enhanced.dat.sha256sum
+https://raw.githubusercontent.com/thrandex/china-geodata/release/manifest.json
 ```
 
 These URLs serve the files directly, with no redirect.
@@ -28,12 +32,13 @@ These URLs serve the files directly, with no redirect.
 ## Use with honk
 
 honk downloads `assets.geodata.geosite` and checks it against
-`<url>.sha256sum`. Point it at one of the files:
+`<url>.sha256sum`. The honk/v2ray `assets.geodata` block maps directly onto
+this repository: the `geosite` key takes the `geosite-cn.dat` URL.
 
 ```
 assets {
     geodata {
-        geosite: 'https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn.dat'
+        geosite: 'https://raw.githubusercontent.com/thrandex/china-geodata/release/geosite-cn.dat'
     }
 }
 ```
