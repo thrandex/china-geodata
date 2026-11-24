@@ -1,0 +1,51 @@
+name: build
+
+on:
+  schedule:
+    - cron: '0 23 * * *' # 07:00 Beijing, after Loyalsoldier's 06:00 build
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+
+      # Downloads the latest v2fly release (dlc.dat checked against its
+      # .sha256sum) and the Loyalsoldier lists at the current release commit,
+      # builds both outputs and runs every quality gate. Any failure stops
+      # the job before anything is published.
+      - name: Build and check
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: scripts/build.sh "$RUNNER_TEMP/out"
+
+      - name: Publish to release branch
+        env:
+          OUT: ${{ runner.temp }}/out
+        run: |
+          set -euo pipefail
+          if git fetch --depth=1 origin release 2>/dev/null \
+            && git show FETCH_HEAD:geosite-cn.dat.sha256sum | cmp -s - "$OUT/geosite-cn.dat.sha256sum" \
+            && git show FETCH_HEAD:geosite-cn-enhanced.dat.sha256sum | cmp -s - "$OUT/geosite-cn-enhanced.dat.sha256sum"; then
+            echo "Outputs unchanged; nothing to publish."
+            exit 0
+          fi
+          # One orphan commit holding only the files in $OUT.
+          export GIT_INDEX_FILE="$RUNNER_TEMP/release.index"
+          export GIT_AUTHOR_NAME='github-actions[bot]' GIT_COMMITTER_NAME='github-actions[bot]'
+          export GIT_AUTHOR_EMAIL='41898283+github-actions[bot]@users.noreply.github.com'
+          export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+          git --work-tree="$OUT" add --all --force
+          commit=$(git commit-tree "$(git write-tree)" -m "Release $(date -u +%Y-%m-%dT%H:%M:%SZ)")
+          git push --force origin "$commit:refs/heads/release"
