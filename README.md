@@ -1,4 +1,4 @@
-# geosite-cn
+# only-china
 
 Small `geosite.dat` files for routers, rebuilt every day by GitHub Actions.
 Each file holds exactly one tag, `CN`.
@@ -16,11 +16,11 @@ each list, the rule counts by type, and the output sha256s.
 ## Download URLs
 
 ```
-https://raw.githubusercontent.com/thrandex/geosite-cn/release/geosite-cn.dat
-https://raw.githubusercontent.com/thrandex/geosite-cn/release/geosite-cn.dat.sha256sum
-https://raw.githubusercontent.com/thrandex/geosite-cn/release/geosite-cn-enhanced.dat
-https://raw.githubusercontent.com/thrandex/geosite-cn/release/geosite-cn-enhanced.dat.sha256sum
-https://raw.githubusercontent.com/thrandex/geosite-cn/release/manifest.json
+https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn.dat
+https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn.dat.sha256sum
+https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn-enhanced.dat
+https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn-enhanced.dat.sha256sum
+https://raw.githubusercontent.com/thrandex/only-china/release/manifest.json
 ```
 
 These URLs serve the files directly, with no redirect.
@@ -33,7 +33,7 @@ honk downloads `assets.geodata.geosite` and checks it against
 ```
 assets {
     geodata {
-        geosite: 'https://raw.githubusercontent.com/thrandex/geosite-cn/release/geosite-cn.dat'
+        geosite: 'https://raw.githubusercontent.com/thrandex/only-china/release/geosite-cn.dat'
     }
 }
 ```

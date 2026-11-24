@@ -120,7 +120,7 @@ python3 -I "$SCRIPTS/manifest.py" --out-dir "$OUT" \
   --build-time "$BUILD_TIME"
 
 cat > "$OUT/README.md" <<EOF
-# geosite-cn release
+# only-china release
 
 Built $BUILD_TIME by GitHub Actions from the \`main\` branch. This branch is
 replaced by a single new commit on every build.
