@@ -1,0 +1,52 @@
+{
+  "build_time": "2026-11-24T08:24:54Z",
+  "sources": {
+    "v2fly": {
+      "repo": "v2fly/domain-list-community",
+      "release": "20261123144211",
+      "file": "dlc.dat",
+      "sha256": "b5aab90aeb07df4b1248a1c2a77917b43580d6542e490c287b952c699b484a32"
+    },
+    "loyalsoldier": {
+      "repo": "Loyalsoldier/v2ray-rules-dat",
+      "branch": "release",
+      "commit": "a062894a0544dd1b4cd5553ca85a978d8fec8c8c",
+      "files": {
+        "direct-list.txt": "6f0a812e5b6a240bc4555d4989ca227ade3eb2151a55b85d25aa9d4d711975cb",
+        "china-list.txt": "59748dc0d6586ad073d456985fc05173e708748a70e07a64dd228ddf6fe471b7",
+        "apple-cn.txt": "9fbb3bc9b6c9d81c4b1887ce4c81f816a676618592c3dbd2a8c742e14fbba32b",
+        "google-cn.txt": "35f95e0c5172cf4afac90aa542a2809ca8c84706173ef363b8ad870d27e9fa06"
+      }
+    }
+  },
+  "outputs": {
+    "geosite-cn.dat": {
+      "sha256": "5c3acd2db51b5ee3c31e744d05e5d7d7af063612217b36557d29fa0e9cc9386a",
+      "size": 130423,
+      "tags": [
+        "CN"
+      ],
+      "rules": 6769,
+      "counts": {
+        "RootDomain": 6722,
+        "Full": 44,
+        "Plain": 0,
+        "Regex": 3
+      }
+    },
+    "geosite-cn-enhanced.dat": {
+      "sha256": "3c2991db1b9809f7209199fe317b614b6ddeb58ef111fd3a4ca34c33f0f19ed7",
+      "size": 1949731,
+      "tags": [
+        "CN"
+      ],
+      "rules": 110388,
+      "counts": {
+        "RootDomain": 109974,
+        "Full": 406,
+        "Plain": 0,
+        "Regex": 8
+      }
+    }
+  }
+}
